@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             setOnRefreshListener {
                 mainViewModel.fetch(true).also {
                     if (!it) isRefreshing = false
+                    firstLoading = true
                 }
             }
         }

@@ -29,18 +29,19 @@ class MainViewModel(
             itemModelMapper.mapToModel(it)
         }.getOrThrow()
     }, fetchMore = {
+        val nextPage = page + 1
         val itemModels =
             (value as? Success<List<BeerListItemModel>>)?.item?.toMutableList()?.apply {
                 removeIsInstance<FooterLoadMoreItemModel>()
             } ?: emptyList()
 
         val newItems = runCatching {
-            useCase.list(query.value ?: "", page)
+            useCase.list(query.value ?: "", nextPage)
         }.mapCatching {
             itemModelMapper.mapToModel(it)
         }.onSuccess {
+            page = nextPage
             endOfPage = it.isEmpty()
-            ++page
         }.getOrNull() ?: emptyList()
 
         itemModels + newItems
