@@ -30,9 +30,8 @@ interface ApiRemoteDataSource {
     companion object {
         private const val BASE_URL = "https://api.punkapi.com/v2/"
 
-        operator fun invoke(authorizationInterceptor: AuthorizationInterceptor): ApiRemoteDataSource {
+        operator fun invoke(): ApiRemoteDataSource {
             val okHttpBuilder = OkHttpClient.Builder()
-                .addInterceptor(authorizationInterceptor)
 
             return Retrofit.Builder()
                 .client(okHttpBuilder.build())

@@ -1,7 +1,6 @@
 package com.acadia.punk
 
 import com.acadia.punk.data.network.ApiRemoteDataSource
-import com.acadia.punk.data.network.AuthorizationInterceptor
 import com.acadia.punk.data.repository.BeerRepository
 import com.acadia.punk.domain.model.mapper.BeerMapper
 import com.acadia.punk.domain.usecase.BeerUseCase
@@ -14,8 +13,7 @@ interface AppModules {
 
     companion object {
         operator fun invoke() = module {
-            single { AuthorizationInterceptor() }
-            single { ApiRemoteDataSource(authorizationInterceptor = get()) }
+            single { ApiRemoteDataSource() }
             single { BeerRepository(remoteDataSource = get()) }
 
             single { BeerMapper() }
