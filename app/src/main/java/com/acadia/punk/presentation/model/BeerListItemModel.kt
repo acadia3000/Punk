@@ -16,7 +16,7 @@ sealed class BeerListItemModel(@LayoutRes val layoutResId: Int) :
 
     override fun areItemsTheSame(other: DiffCallback): Boolean {
         return if (this is ContentItemModel && other is ContentItemModel) {
-            this.beer == other.beer
+            this.beer.id == other.beer.id
         } else {
             super.areItemsTheSame(other)
         }
